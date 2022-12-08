@@ -1,0 +1,42 @@
+def parsser(file_name, by_what):
+    try:
+        f = open(file_name, "r")
+    except:
+        print('faild in read file')
+        return
+    count_of_raw = 0
+    line = f.readline()
+    while line:
+        i = 0
+        if by_what in line:
+            raw_line = line.split(by_what)
+            raw_line.remove('')
+            element_of_row = raw_line[0].split(',')
+
+            try:
+                element_of_row.remove('\n')
+            except:
+                pass
+            print(f'element of array {len(element_of_row)}')
+            end_of_run = int(len(element_of_row) / 2 - 1) if len(element_of_row) % 2 == 0 else int(
+                len(element_of_row) / 2)
+            while i <= end_of_run:
+                if len(element_of_row[i]) != 4:
+                    print(f'worng digit {element_of_row[i]}')
+                if len(element_of_row) - i - 1 == i:
+                    break
+                if len(element_of_row[len(element_of_row) - i - 1]) != 4:
+                    print(f'worng digit {element_of_row[len(element_of_row) - i - 1]}')
+
+                if not element_of_row[len(element_of_row) - i - 1].isnumeric() or not element_of_row[i].isnumeric():
+                    print('one of paramter is not numeric')
+                i += 1
+            count_of_raw += 1
+
+        line = f.readline()
+    f.close()
+    print(f'count of raw is {count_of_raw}')
+
+
+parsser('rawData1637498911490_10.ttlog', 'RAW:  ')
+
